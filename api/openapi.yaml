@@ -1,0 +1,596 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: it@vilabs.eu
+  description: This is a sample openApi document
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://wabli.netlify.app/
+  title: TempApi
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- description: okthess-community-6001
+  url: https://83.212.100.226:6001/v1
+security:
+- {}
+tags:
+- description: not yet ready
+  name: user
+- description: not yet ready
+  name: product
+- description: not yet ready
+  name: order
+paths:
+  /user:
+    post:
+      operationId: createuser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+        description: data to be created
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+          description: successful operation
+      summary: Creates the data
+      tags:
+      - user
+      x-eov-operation-handler: controllers/UserController
+  /user/{userId}:
+    delete:
+      operationId: deleteuser
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: successful operation
+      summary: Delete the element
+      tags:
+      - user
+      x-eov-operation-handler: controllers/UserController
+    get:
+      operationId: getuser
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+          description: successful operation
+      summary: Get the element
+      tags:
+      - user
+      x-eov-operation-handler: controllers/UserController
+    put:
+      operationId: updateuser
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+        description: data to be updated
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+          description: successful operation
+      summary: Updates the element
+      tags:
+      - user
+      x-eov-operation-handler: controllers/UserController
+  /user/getAll:
+    get:
+      operationId: getAlluser
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/user'
+                type: array
+          description: successful operation
+      summary: Get all the data
+      tags:
+      - user
+      x-method-getAll: "true"
+      x-eov-operation-handler: controllers/UserController
+  /user/getByParams:
+    get:
+      operationId: getByParamsuser
+      parameters:
+      - description: the query based on which the search is performed
+        explode: true
+        in: query
+        name: filter
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/user'
+                type: array
+          description: successful operation
+      summary: Get all the data based on user query
+      tags:
+      - user
+      x-method-get-by-params: "true"
+      x-eov-operation-handler: controllers/UserController
+  /product:
+    post:
+      operationId: createproduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product'
+        description: data to be created
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+          description: successful operation
+      summary: Creates the data
+      tags:
+      - product
+      x-eov-operation-handler: controllers/ProductController
+  /product/{productId}:
+    delete:
+      operationId: deleteproduct
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: productId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: successful operation
+      summary: Delete the element
+      tags:
+      - product
+      x-eov-operation-handler: controllers/ProductController
+    get:
+      operationId: getproduct
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: productId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+          description: successful operation
+      summary: Get the element
+      tags:
+      - product
+      x-eov-operation-handler: controllers/ProductController
+    put:
+      operationId: updateproduct
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: productId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product'
+        description: data to be updated
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+          description: successful operation
+      summary: Updates the element
+      tags:
+      - product
+      x-eov-operation-handler: controllers/ProductController
+  /product/getAll:
+    get:
+      operationId: getAllproduct
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/product'
+                type: array
+          description: successful operation
+      summary: Get all the data
+      tags:
+      - product
+      x-method-getAll: "true"
+      x-eov-operation-handler: controllers/ProductController
+  /product/getByParams:
+    get:
+      operationId: getByParamsproduct
+      parameters:
+      - description: the query based on which the search is performed
+        explode: true
+        in: query
+        name: filter
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/product'
+                type: array
+          description: successful operation
+      summary: Get all the data based on user query
+      tags:
+      - product
+      x-method-get-by-params: "true"
+      x-eov-operation-handler: controllers/ProductController
+  /order:
+    post:
+      operationId: createorder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/order'
+        description: data to be created
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order'
+          description: successful operation
+      summary: Creates the data
+      tags:
+      - order
+      x-eov-operation-handler: controllers/OrderController
+  /order/{orderId}:
+    delete:
+      operationId: deleteorder
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: orderId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: successful operation
+      summary: Delete the element
+      tags:
+      - order
+      x-eov-operation-handler: controllers/OrderController
+    get:
+      operationId: getorder
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: orderId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order'
+          description: successful operation
+      summary: Get the element
+      tags:
+      - order
+      x-eov-operation-handler: controllers/OrderController
+    put:
+      operationId: updateorder
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: orderId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/order'
+        description: data to be updated
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order'
+          description: successful operation
+      summary: Updates the element
+      tags:
+      - order
+      x-eov-operation-handler: controllers/OrderController
+  /order/getAll:
+    get:
+      operationId: getAllorder
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/order'
+                type: array
+          description: successful operation
+      summary: Get all the data
+      tags:
+      - order
+      x-method-getAll: "true"
+      x-eov-operation-handler: controllers/OrderController
+  /order/getByParams:
+    get:
+      operationId: getByParamsorder
+      parameters:
+      - description: the query based on which the search is performed
+        explode: true
+        in: query
+        name: filter
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/order'
+                type: array
+          description: successful operation
+      summary: Get all the data based on user query
+      tags:
+      - order
+      x-method-get-by-params: "true"
+      x-eov-operation-handler: controllers/OrderController
+components:
+  schemas:
+    user:
+      example:
+        fridayopen: fridayopen
+        userstatus: userstatus
+        userproducts:
+        - ""
+        - ""
+        tuesdayclose: tuesdayclose
+        useraddress: useraddress
+        thursdayclose: thursdayclose
+        usercategory: usercategory
+        userregion: userregion
+        fridayclose: fridayclose
+        thursdayopen: thursdayopen
+        usertown: usertown
+        password: password
+        userpc: 0.8008281904610115
+        userimage:
+          data: data
+          name: name
+        mondayclose: mondayclose
+        _id: _id
+        tuesdayopen: tuesdayopen
+        wednesdayopen: wednesdayopen
+        useremail: useremail
+        username: username
+        mondayopen: mondayopen
+        wednesdayclose: wednesdayclose
+      properties:
+        _id:
+          type: string
+        useremail:
+          type: string
+        password:
+          type: string
+        username:
+          type: string
+        usercategory:
+          type: string
+        userstatus:
+          type: string
+        userimage:
+          $ref: '#/components/schemas/user_userimage'
+        mondayclose:
+          type: string
+        mondayopen:
+          type: string
+        tuesdayopen:
+          type: string
+        tuesdayclose:
+          type: string
+        wednesdayopen:
+          type: string
+        wednesdayclose:
+          type: string
+        thursdayclose:
+          type: string
+        thursdayopen:
+          type: string
+        fridayopen:
+          type: string
+        fridayclose:
+          type: string
+        usertown:
+          type: string
+        userregion:
+          type: string
+        useraddress:
+          type: string
+        userpc:
+          format: double
+          type: number
+        userproducts:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/product'
+            - type: string
+            x-one-of-name: product
+          type: array
+      required:
+      - fridayclose
+      - fridayopen
+      - mondayclose
+      - mondayopen
+      - password
+      - thursdayclose
+      - thursdayopen
+      - tuesdayclose
+      - tuesdayopen
+      - useraddress
+      - usercategory
+      - useremail
+      - userimage
+      - username
+      - userpc
+      - userproducts
+      - userregion
+      - userstatus
+      - usertown
+      - wednesdayclose
+      - wednesdayopen
+      type: object
+    product:
+      example:
+        productImage:
+          data: data
+          name: name
+        _id: _id
+        productUnit: productUnit
+        productName: productName
+        productPrice: 0.8008281904610115
+        productCategory: productCategory
+      properties:
+        _id:
+          type: string
+        productName:
+          type: string
+        productPrice:
+          format: double
+          type: number
+        productUnit:
+          type: string
+        productCategory:
+          type: string
+        productImage:
+          $ref: '#/components/schemas/user_userimage'
+      required:
+      - productCategory
+      - productImage
+      - productName
+      - productPrice
+      - productUnit
+      type: object
+    order:
+      example:
+        orderstatus: orderstatus
+        ordersupplier: ""
+        _id: _id
+        orderprice: 0.8008281904610115
+      properties:
+        _id:
+          type: string
+        orderprice:
+          format: double
+          type: number
+        orderstatus:
+          type: string
+        ordersupplier:
+          oneOf:
+          - $ref: '#/components/schemas/user'
+          - type: string
+          x-one-of-name: user
+      required:
+      - orderprice
+      - orderstatus
+      - ordersupplier
+      type: object
+    user_userimage:
+      example:
+        data: data
+        name: name
+      properties:
+        data:
+          type: string
+        name:
+          type: string
+      type: object
+      x-isSchemaOnly: "true"
