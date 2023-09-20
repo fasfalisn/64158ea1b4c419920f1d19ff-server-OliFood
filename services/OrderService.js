@@ -80,6 +80,9 @@ const getByParamsorder = ({ filter }) => new Promise(
       let query = {}
       query = await Order.find(JSON.parse( filter ))
       .populate({
+        path: 'ordercustomer'
+      })
+      .populate({
         path: 'ordersupplier',
         populate: {
           path: 'userproducts'        }

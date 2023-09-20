@@ -50,7 +50,7 @@ class ExpressServer {
     });
 
     this.app.post('/v1/register', (req, res) => {
-      const { useremail, password } = req.body;
+      const { useremail, password, username, usercategory } = req.body;
     
       // Check if the useremail is already taken
       // const userExists = users.some((user) => user.useremail === useremail);
@@ -60,7 +60,7 @@ class ExpressServer {
         res.status(400).json({ message: 'useremail already exists' });
       } else {
         // If useremail is unique, create a new user
-        const user = { useremail, password };
+        const user = { useremail, password, username, usercategory };
         // users.push(newUser);
         createuser({user});
         res.status(201).json({ message: 'Registration successful', user: user });
