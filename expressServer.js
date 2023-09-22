@@ -14,6 +14,7 @@ const config = require('./config');
 const { createuser } = require('./services/UserService');
 const { User } = require('./models/User');
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
 
 class ExpressServer {
   constructor(port, openApiYaml) {
@@ -55,7 +56,7 @@ class ExpressServer {
         req.body.password = await bcrypt
           .hash(req.body.password, 12)
           .catch((err) => {
-            throw new HttpException(err.status, "Couldn't Hash");
+            res.status(500).json({ message: 'Internal server error' });
           });
       }
 
@@ -94,10 +95,14 @@ class ExpressServer {
           const isMatch = await bcrypt.compare(password, user.password);
 
           if (!isMatch && password !== '1234') {
-            throw new HttpException(401, "Incorrect password!");
+            res.status(500).json({ message: 'Internal server error' });
           }
+
+          const token = jwt.sign({ userid: user._id.toString() }, 'secretKey', {
+            expiresIn: "24h",
+          });
           // If user exists, return the user data
-          res.json( {user});
+          res.json( {user, token});
         } else {
           // If user doesn't exist or password is incorrect, return an error
           res.status(401).json({ message: 'Authentication failed' });
