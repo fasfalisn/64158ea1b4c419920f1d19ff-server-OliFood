@@ -50,7 +50,7 @@ class ExpressServer {
       res.json(req.query);
     });
 
-    this.app.post('/v1/register', (req, res) => {
+    this.app.post('/v1/register', async (req, res) => {
       if (req.body.password) {
         req.body.password = await bcrypt
           .hash(req.body.password, 12)
