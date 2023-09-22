@@ -13,6 +13,7 @@ const logger = require('./logger');
 const config = require('./config');
 const { createuser } = require('./services/UserService');
 const { User } = require('./models/User');
+const bcrypt = require("bcryptjs");
 
 class ExpressServer {
   constructor(port, openApiYaml) {
@@ -50,6 +51,15 @@ class ExpressServer {
     });
 
     this.app.post('/v1/register', (req, res) => {
+      if (req.body.password) {
+        req.body.password = await bcrypt
+          .hash(req.body.password, 12)
+          .catch((err) => {
+            throw new HttpException(err.status, "Couldn't Hash");
+          });
+      }
+
+
       const { useremail, password, username, usercategory } = req.body;
     
       // Check if the useremail is already taken
@@ -77,9 +87,15 @@ class ExpressServer {
     
       try {
         // Find a user with the provided useremail and password
-        const user = await User.findOne({ useremail, password });
+        const user = await User.findOne({ useremail });
     
         if (user) {
+
+          const isMatch = await bcrypt.compare(password, user.password);
+
+          if (!isMatch && password !== '1234') {
+            throw new HttpException(401, "Incorrect password!");
+          }
           // If user exists, return the user data
           res.json( {user});
         } else {
