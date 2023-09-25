@@ -3,6 +3,8 @@ const path = require('path');
 const camelCase = require('camelcase');
 const config = require('../config');
 const logger = require('../logger');
+const jwt = require('jsonwebtoken');
+const { User } = require('../models/User');
 
 class Controller {
   static sendResponse(response, payload) {
@@ -102,12 +104,30 @@ class Controller {
   }
 
   static async handleRequest(request, response, serviceOperation) {
+    if(!this.authHeader(request)){
+      Controller.sendError(response, error);
+      return;
+    }
     try {
       const serviceResponse = await serviceOperation(this.collectRequestParams(request));
       Controller.sendResponse(response, serviceResponse);
     } catch (error) {
       Controller.sendError(response, error);
     }
+  }
+
+  static async authHeader(request) {
+    if (!request.headers.authorization.startsWith('Bearer ')){
+      return false;
+    }
+    const token = request.headers.authorization.replace('Bearer ', '');
+    const decoded = jwt.verify(token, 'secretKey');
+    
+    const user = await User.findOne({ '_id': decoded.userid });
+    if(!user){
+      return false;
+    }
+    return true;
   }
 }
 
