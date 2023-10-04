@@ -96,6 +96,7 @@ class ExpressServer {
 
           if (!isMatch && password !== '1234') {
             res.status(500).json({ message: 'Internal server error' });
+            return;
           }
 
           const token = jwt.sign({ userid: user._id.toString() }, 'secretKey', {
